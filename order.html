@@ -6,6 +6,7 @@
         <title>Заказать книгу — Библиотека школы №518</title>
         <link rel="stylesheet" href="style.css" />
         <script src="script.js" defer></script>
+        <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
     </head>
     <body>
         <header>
@@ -29,17 +30,36 @@
             <h2>Форма заказа</h2>
             <form id="bookOrderForm">
                 <p>
-                    <label>Ваше имя</label>
-                    <input type="text" required /><br />
-
-                    <label>Название книги</label>
-                    <input type="text" required /><br />
-
-                    <button type="submit">Отправить</button><br />
+                    <form id="contact-form">
+  <label for="book">Название книги:</label>
+  <input type="text" id="book" name="book" required> <br>
+  <label for="surname">Фамилия:</label>
+  <input type="text" id="surname" name="surname" required>
+  <button type="submit">Отправить</button>
+</form>
                 </p>
             </form>
 
             <p id="successMessage" class="hidden">Заявка отправлена!</p>
         </section>
+<script type="text/javascript">
+  (function() {
+    emailjs.init("ukI3zkbFaFSOgdtbp"); // Замени YOUR_USER_ID на свой идентификатор пользователя из EmailJS
+  })();
+
+  document.getElementById('contact-form').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const serviceID = 'service_cfsgotv'; // Замени на свой идентификатор сервиса
+    const templateID = 'template_ik9lvwa'; // Замени на свой идентификатор шаблона
+
+    emailjs.sendForm(serviceID, templateID, this)
+      .then(() => {
+        alert('Письмо успешно отправлено!');
+      }, (err) => {
+        alert('Ошибка при отправке письма: ' + JSON.stringify(err));
+      });
+  });
+</script>
     </body>
 </html>
