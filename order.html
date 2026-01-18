@@ -36,7 +36,7 @@
     <label for="book">Название книги:</label>
     <input type="text" id="book" name="book" required>
     
-    <label for="surname">Фамилия:</label>
+    <label for="surname">ФИО:</label>
     <input type="text" id="surname" name="surname" required>
     
     <button type="submit">Отправить</button>
@@ -46,26 +46,35 @@
                 </p>
             </form>
 
-            <p id="successMessage" class="hidden">Заявка отправлена!</p>
-        </section>
-<script type="text/javascript">
+           <!-- Подключение библиотеки EmailJS -->
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+
+<script>
   (function() {
-    emailjs.init("ukI3zkbFaFSOgdtbp"); // Замени YOUR_USER_ID на свой идентификатор пользователя из EmailJS
+    // Инициализация с вашим Public Key
+    emailjs.init("ukI3zkbFaFSOgdtbp");
   })();
 
+  // Обработчик отправки формы
   document.getElementById('contact-form').addEventListener('submit', function(event) {
-    event.preventDefault();
+    event.preventDefault(); // Отменяем стандартную отправку
 
-    const serviceID = 'service_iuo8tzm'; // Замени на свой идентификатор сервиса
-    const templateID = 'template_ik9lvwa'; // Замени на свой идентификатор шаблона
-
-    emailjs.sendForm(serviceID, templateID, this)
-      .then(() => {
-        alert('Письмо успешно отправлено!');
-      }, (err) => {
-        alert('Ошибка при отправке письма: ' + JSON.stringify(err));
-      });
+    // Отправляем данные
+    emailjs.sendForm(
+      'service_cr9ww4e',     // Ваш Service ID (Яндекс)
+      'template_8domlcl',   // Ваш Template ID
+      this                  // Форма (contact-form)
+    )
+    .then(function(response) {
+      alert('Заказ отправлен! Мы свяжемся с вами.');
+      console.log('Успешно:', response);
+    })
+    .catch(function(error) {
+      alert('Ошибка отправки: ' + JSON.stringify(error));
+      console.error('Ошибка:', error);
+    });
   });
 </script>
+
     </body>
 </html>
