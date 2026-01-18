@@ -30,13 +30,19 @@
             <h2>Форма заказа</h2>
             <form id="bookOrderForm">
                 <p>
-                    <form id="contact-form">
-  <label for="book">Название книги:</label>
-  <input type="text" id="book" name="book" required> <br>
-  <label for="surname">Фамилия:</label>
-  <input type="text" id="surname" name="surname" required>
-  <button type="submit">Отправить</button>
-</form>
+                    <section class="order-form">
+  <h2>Форма заказа</h2>
+  <form id="contact-form"> <!-- Единый ID для обработчика -->
+    <label for="book">Название книги:</label>
+    <input type="text" id="book" name="book" required>
+    
+    <label for="surname">Фамилия:</label>
+    <input type="text" id="surname" name="surname" required>
+    
+    <button type="submit">Отправить</button>
+  </form>
+</section>
+
                 </p>
             </form>
 
@@ -50,7 +56,7 @@
   document.getElementById('contact-form').addEventListener('submit', function(event) {
     event.preventDefault();
 
-    const serviceID = 'service_cfsgotv'; // Замени на свой идентификатор сервиса
+    const serviceID = 'service_iuo8tzm'; // Замени на свой идентификатор сервиса
     const templateID = 'template_ik9lvwa'; // Замени на свой идентификатор шаблона
 
     emailjs.sendForm(serviceID, templateID, this)
