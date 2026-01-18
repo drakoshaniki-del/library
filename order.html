@@ -1,15 +1,43 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Заказать книгу — Библиотека школы №518</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      max-width: 500px;
-      margin: 40px auto;
+      margin: 0;
+      padding: 0;
+      background-color: #fff;
+    }
+    header {
+      background-color: #003366;
+      color: white;
+      padding: 15px 0;
+      text-align: center;
+    }
+    nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 10px 0;
+    }
+    nav ul li {
+      display: inline;
+      margin: 0 15px;
+    }
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+    }
+    .container {
+      max-width: 800px;
+      margin: 20px auto;
       padding: 20px;
+    }
+    h2 {
+      color: #003366;
+      margin-bottom: 20px;
     }
     .form-group {
       margin-bottom: 15px;
@@ -18,89 +46,87 @@
       display: block;
       margin-bottom: 5px;
       font-weight: bold;
+      color: #003366;
     }
-    input[type="text"] {
+    input[type="text"], input[type="email"] {
       width: 100%;
       padding: 8px;
-      border: 1px solid #ccc;
+      border: 1px solid #ddd;
       border-radius: 4px;
       box-sizing: border-box;
     }
     button {
-      background-color: #4CAF50;
+      background-color: #003366;
       color: white;
       padding: 10px 20px;
       border: none;
       border-radius: 4px;
       cursor: pointer;
+      font-size: 16px;
     }
     button:hover {
-      background-color: #45a049;
+      background-color: #002a53;
     }
   </style>
-  <!-- Подключаем EmailJS -->
-  <script src="https://cdn.jsdelivr.net/npm/@emailjs/client@3/dist/email.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
 </head>
 <body>
   <header>
-    <h1 class="main-title">Заказать книгу</h1>
+    <h1>О библиотеке</h1>
     <nav>
       <ul>
-        <li><a href="index.html">Главная</a></li>
-        <li><a href="catalog.html">Каталог</a></li>
-        <li><a href="order.html">Заказать книгу</a></li>
-        <li><a href="about.html">О библиотеке</a></li>
-        <li>
-          <a href="https://518shkola.oshkole.ru/" target="_blank">Сайт школы 518</a>
-        </li>
+        <li><a href="#">Главная</a></li>
+        <li><a href="#">Каталог</a></li>
+        <li><a href="#">Заказать книгу</a></li>
+        <li><a href="#">О библиотеке</a></li>
+        <li><a href="#">Сайт школы 518</a></li>
       </ul>
     </nav>
   </header>
 
-  <h2>Заказ книги</h2>
-  <form id="contact-form">
-    <div class="form-group">
-      <label for="book">Название книги:</label>
-      <input type="text" id="book" name="book" required>
-    </div>
-    <div class="form-group">
-      <label for="surname">Ваша фамилия:</label>
-      <input type="text" id="surname" name="surname" required>
-    </div>
-    <button type="submit">Отправить заказ</button>
-  </form>
+  <div class="container">
+    <h2>Заказ книги</h2>
+    <form id="contact-form">
+      <div class="form-group">
+        <label for="book">Название книги:</label>
+        <input type="text" id="book" name="book" required>
+      </div>
+      <div class="form-group">
+        <label for="surname">Ваша фамилия:</label>
+        <input type="text" id="surname" name="surname" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Ваш e-mail:</label>
+        <input type="email" id="email" name="email" required>
+      </div>
+      <button type="submit">Отправить заказ</button>
+    </form>
+  </div>
 
   <script>
-    (function() {
-      // Ваш Public Key из профиля EmailJS
-      emailjs.init("ukI3zkbFaFSOgdtbp");
-    })();
+    // Инициализация EmailJS (замените на ваш Public Key)
+    emailjs.init('ВАШ_PUBLIC_KEY');
 
     document.getElementById('contact-form').addEventListener('submit', function(event) {
       event.preventDefault();
 
-      // Собираем данные для шаблона
-      const book = document.getElementById('book').value;
-      const surname = document.getElementById('surname').value;
-      const time = new Date().toLocaleString('ru-RU');
-
-      const templateParams = {
-        book: book,
-        surname: surname,
-        time: time
+      const formData = {
+        book: document.getElementById('book').value,
+        surname: document.getElementById('surname').value,
+        email: document.getElementById('email').value,
+        time: new Date().toLocaleString()
       };
 
       emailjs.send(
-        'service_rec9l97',      // Ваш Service ID
-        'template_8domlcl',    // Ваш Template ID
-        templateParams
+        'ВАШ_SERVICE_ID',      // Service ID из EmailJS
+        'ВАШ_TEMPLATE_ID',     // Template ID из EmailJS
+        formData
       )
-      .then(function(response) {
-        alert('Заказ отправлен! Спасибо.');
+      .then(function() {
+        alert('Заказ отправлен! Мы свяжемся с вами.');
         document.getElementById('contact-form').reset();
       }, function(error) {
-        alert('Ошибка: ' + JSON.stringify(error));
-        console.error('Детали ошибки:', error);
+        alert('Ошибка отправки: ' + error.text);
       });
     });
   </script>
