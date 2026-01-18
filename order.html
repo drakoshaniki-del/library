@@ -35,30 +35,27 @@
       <button type="submit">Отправить</button>
     </form>
   </section>
+<script>
+  (function() {
+    emailjs.init("ukI3zkbFaFSOgdtbp"); // Ваш Public Key из EmailJS
+  })();
 
-  <!-- JavaScript (внизу страницы) -->
-  <script>
-    (function() {
-      // Ваш Public Key из EmailJS
-      emailjs.init("ukI3zkbFaFSOgdtbp");
-    })();
+  document.getElementById('contact-form').addEventListener('submit', function(event) {
+    event.preventDefault();
 
-    document.getElementById('contact-form').addEventListener('submit', function(event) {
-      event.preventDefault();
-
-      emailjs.sendForm(
-        'service_cr9ww4e',  // Ваш Service ID
-        'template_8domlcl', // Ваш Template ID
-        this
-      )
-      .then(() => {
-        alert('Заказ отправлен! Мы свяжемся с вами.');
-      })
-      .catch((error) => {
-        alert('Ошибка отправки: ' + JSON.stringify(error));
-        console.error('Ошибка:', error);
-      });
+    emailjs.sendForm(
+      'service_rec9l97',  // Ваш Service ID из панели EmailJS
+      'template_8domlcl',   // Ваш Template ID
+      this
+    )
+    .then(() => {
+      alert('Отправлено!');
+    })
+    .catch((error) => {
+      alert('Ошибка: ' + JSON.stringify(error));
+      console.error('Детали ошибки:', error);
     });
-  </script>
+  });
+</script>
 </body>
 </html>
