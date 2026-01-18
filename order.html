@@ -1,80 +1,65 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ru">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Заказать книгу — Библиотека школы №518</title>
-        <link rel="stylesheet" href="style.css" />
-        <script src="script.js" defer></script>
-        <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
-    </head>
-    <body>
-        <header>
-            <h1 class="main-title">Заказать книгу</h1>
-            <nav>
-                <ul>
-                    <li><a href="index.html">Главная</a></li>
-                    <li><a href="catalog.html">Каталог</a></li>
-                    <li><a href="order.html">Заказать книгу</a></li>
-                    <li><a href="about.html">О библиотеке</a></li>
-                    <li>
-                        <a href="https://518shkola.oshkole.ru/" target="_blank"
-                            >Сайт школы 518</a
-                        >
-                    </li>
-                </ul>
-            </nav>
-        </header>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Заказать книгу — Библиотека школы №518</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- Подключаем EmailJS -->
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+</head>
+<body>
+  <header>
+    <h1 class="main-title">Заказать книгу</h1>
+    <nav>
+      <ul>
+        <li><a href="index.html">Главная</a></li>
+        <li><a href="catalog.html">Каталог</a></li>
+        <li><a href="order.html">Заказать книгу</a></li>
+        <li><a href="about.html">О библиотеке</a></li>
+        <li>
+          <a href="https://518shkola.oshkole.ru/" target="_blank">Сайт школы 518</a>
+        </li>
+      </ul>
+    </nav>
+  </header>
 
-        <section class="order-form">
-            <h2>Форма заказа</h2>
-            <form id="bookOrderForm">
-                <p>
-                    <section class="order-form">
-  <h2>Форма заказа</h2>
-  <form id="contact-form"> <!-- Единый ID для обработчика -->
-    <label for="book">Название книги:</label>
-    <input type="text" id="book" name="book" required>
-    
-    <label for="surname">ФИО:</label>
-    <input type="text" id="surname" name="surname" required>
-    
-    <button type="submit">Отправить</button>
-  </form>
-</section>
+  <section class="order-form">
+    <h2>Форма заказа</h2>
+    <form id="contact-form">
+      <label for="book">Название книги:</label>
+      <input type="text" id="book" name="book" required>
 
-                </p>
-            </form>
+      <label for="surname">ФИО:</label>
+      <input type="text" id="surname" name="surname" required>
 
-           <!-- Подключение библиотеки EmailJS -->
-<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+      <button type="submit">Отправить</button>
+    </form>
+  </section>
 
-<script>
-  (function() {
-    // Инициализация с вашим Public Key
-    emailjs.init("ukI3zkbFaFSOgdtbp");
-  })();
+  <!-- JavaScript (внизу страницы) -->
+  <script>
+    (function() {
+      // Ваш Public Key из EmailJS
+      emailjs.init("ukI3zkbFaFSOgdtbp");
+    })();
 
-  // Обработчик отправки формы
-  document.getElementById('contact-form').addEventListener('submit', function(event) {
-    event.preventDefault(); // Отменяем стандартную отправку
+    document.getElementById('contact-form').addEventListener('submit', function(event) {
+      event.preventDefault();
 
-    // Отправляем данные
-    emailjs.sendForm(
-      'service_cr9ww4e',     // Ваш Service ID (Яндекс)
-      'template_8domlcl',   // Ваш Template ID
-      this                  // Форма (contact-form)
-    )
-    .then(function(response) {
-      alert('Заказ отправлен! Мы свяжемся с вами.');
-      console.log('Успешно:', response);
-    })
-    .catch(function(error) {
-      alert('Ошибка отправки: ' + JSON.stringify(error));
-      console.error('Ошибка:', error);
+      emailjs.sendForm(
+        'service_cr9ww4e',  // Ваш Service ID
+        'template_8domlcl', // Ваш Template ID
+        this
+      )
+      .then(() => {
+        alert('Заказ отправлен! Мы свяжемся с вами.');
+      })
+      .catch((error) => {
+        alert('Ошибка отправки: ' + JSON.stringify(error));
+        console.error('Ошибка:', error);
+      });
     });
-  });
-</script>
-
-    </body>
+  </script>
+</body>
 </html>
