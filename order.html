@@ -4,9 +4,42 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Заказать книгу — Библиотека школы №518</title>
-  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 500px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+    button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
   <!-- Подключаем EmailJS -->
-  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/client@3/dist/email.min.js"></script>
 </head>
 <body>
   <header>
@@ -37,20 +70,30 @@
     <button type="submit">Отправить заказ</button>
   </form>
 
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/client@3/dist/email.min.js"></script>
   <script>
     (function() {
-      // ЗАМЕНИТЕ НА ВАШ PUBLIC KEY ИЗ ПРОФИЛЯ EMAILJS
+      // Ваш Public Key из профиля EmailJS
       emailjs.init("ukI3zkbFaFSOgdtbp");
     })();
 
     document.getElementById('contact-form').addEventListener('submit', function(event) {
       event.preventDefault();
 
-      emailjs.sendForm(
+      // Собираем данные для шаблона
+      const book = document.getElementById('book').value;
+      const surname = document.getElementById('surname').value;
+      const time = new Date().toLocaleString('ru-RU');
+
+      const templateParams = {
+        book: book,
+        surname: surname,
+        time: time
+      };
+
+      emailjs.send(
         'service_rec9l97',      // Ваш Service ID
-        'template_8domlcl',     // Пример Template ID (замените на свой!)
-        this
+        'template_8domlcl',    // Ваш Template ID
+        templateParams
       )
       .then(function(response) {
         alert('Заказ отправлен! Спасибо.');
@@ -63,3 +106,4 @@
   </script>
 </body>
 </html>
+
